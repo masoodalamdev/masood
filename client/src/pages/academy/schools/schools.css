@@ -1,0 +1,10 @@
+.schools{
+    flex: 4;
+}
+img{
+    height: 100px;
+    width: 100px
+}
+td{
+    padding: 20px;
+}

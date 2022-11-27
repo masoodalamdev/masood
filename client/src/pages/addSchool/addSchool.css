@@ -1,0 +1,14 @@
+.addSchool{
+    flex: 4;
+}
+h1{
+    text-align: center;
+}
+.form{
+    display: flex;
+}
+input{
+    display: flex;
+    /* padding: 20px; */
+    /* margin: 20px; */
+}
