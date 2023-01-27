@@ -9,7 +9,7 @@ import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
-import { FcAdvertising, FcBriefcase, FcBullish, FcBusiness, FcCalendar, FcFile, FcGraduationCap, FcHome, FcLibrary, FcNews, FcOrgUnit, FcOvertime, FcPlus, FcVideoFile, FcViewDetails } from "react-icons/fc";
+import { FcAdvertising, FcAssistant, FcBriefcase, FcBullish, FcBusiness, FcBusinessman, FcCalendar, FcFile, FcGraduationCap, FcHome, FcLibrary, FcNews, FcOrgUnit, FcOvertime, FcPlus, FcVideoFile, FcViewDetails } from "react-icons/fc";
 
 
 // export default function Sidebar() {
@@ -444,7 +444,7 @@ export default function Sidebar() {
                 </ul>
               </div>
               <div className="sidebarMenu">
-                <h3 className="sidebarTitle">Schools</h3>
+                <h3 className="sidebarTitle">Registration</h3>
                 <ul className="sidebarList">
                 <Link to="/addSchool" className="link">
 
@@ -453,7 +453,34 @@ export default function Sidebar() {
                    Add School
                   </li>
                   </Link>
+                <Link to="/school" className="link">
+
+                <li className="sidebarListItem">
+                    <FcPlus className="sidebarIcon" />
+                   School
+                  </li>
+                  </Link>
+                <Link to="/teacher" className="link">
+
+                <li className="sidebarListItem">
+                    <FcBusinessman className="sidebarIcon" />
+                   Teacher
+                  </li>
+                  </Link>
+                <Link to="/student" className="link">
+
+                <li className="sidebarListItem">
+                    <FcAssistant className="sidebarIcon" />
+                   Student
+                  </li>
+                  </Link>
                   <Link to="/schools" className="link">
+                  <Link to="/job" className="link">
+                    <li className="sidebarListItem">
+                      <FcBriefcase className="sidebarIcon" />
+                      Job
+                    </li>
+                  </Link>
 
 <li className="sidebarListItem">
     <FcLibrary className="sidebarIcon" />
@@ -465,12 +492,7 @@ export default function Sidebar() {
               <div className="sidebarMenu">
                 <h3 className="sidebarTitle">Quick Menu</h3>
                 <ul className="sidebarList">
-                  <Link to="/jobs" className="link">
-                    <li className="sidebarListItem">
-                      <FcBriefcase className="sidebarIcon" />
-                      Jobs
-                    </li>
-                  </Link>
+                 
                   <Link to="/blog" className="link">
                     <li className="sidebarListItem">
                       <FcOrgUnit className="sidebarIcon" />
@@ -555,7 +577,7 @@ export default function Sidebar() {
               <div className="sidebarMenu">
               <h3 className="sidebarTitle">Student Portal</h3>
                 <ul className="sidebarList">
-                  <Link to="/jobs" className="link">
+                  <Link to="/student/jobs" className="link">
                     <li className="sidebarListItem">
                       <FcBriefcase className="sidebarIcon" />
                       Jobs

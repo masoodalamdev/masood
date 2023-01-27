@@ -9,17 +9,15 @@ const mongoose = require("mongoose");
 // });
 
 const SchoolSchema = new mongoose.Schema({
-    // title: { type: String, required: true },
-    // desc: { type: String, required: true },
-    // song: { type: String, required: true },
-    // img: { type: String, required: true },
-    name: { type: String, required: true },
+    schoolName: { type: String, required: true },
     email: { type: String, required: true },
-    title: { type: String, required: true },
-    department: { type: String, required: true },
-    status: { type: String, required: true },
+    principalName: { type: String, required: true },
+    principalContact: { type: String, required: true },
+    principalCnic: { type: String, required: true },
+    schoolAddress: { type: String, required: true },
+    // status: { type: String, required: false },
     // role: { type: String, required: true },
-    imgUrl: { type: String, required: true },
+    // imgUrl: { type: String, required: false },
     // img2: { type: String, required: true },
 });
 

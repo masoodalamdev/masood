@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './schools.css'
 import axios from "axios";
-
 import Table, { SelectColumnFilter, StatusPill, AvatarCell } from "./Table"; // new
 
 
 export default function Schools() {
  const [schools, setSchools] = useState([]);
  const url = ('/schools')
+ const [updateState, setUpdateState] = useState(-1)
 
  useEffect(()=>{
   // axios.get('https://jsonplaceholder.typicode.com/posts')
@@ -20,270 +20,177 @@ export default function Schools() {
   }).catch(err=> console.log(err))
  }, [])
 
- const handleDelete = async ()=>{
-  try{
-    await axios.delete(`/schools/${schools._id}`
-    // await axios.delete("/")
-    // , {data:{username:user.username}}
-    );
-    // window.location.replace("/")
-  }catch(err){
-    console.log("error is coming from schools.jsx")
 
-  }
+ //handle Delete Function 
+ const handleDelete = () =>{
+    // const url2 = (`/schools/${schools}`)
+    const url2 = `http://localhost:5000/api/schools`
+  axios.delete(url2)
+      .then(response => {
+          const result = response.data;
+          const { status, message } = result;
+          if (status !== 'SUCCESS') {
+              alert(message, status)
+          }
+          else {
+              alert(message)
+              window.location.reload()
+          }
+      })
+      .catch(err => {
+          console.log(err)
+      })
 }
 
- const arr = schools.map((schools)=>{
-  return (
+function handleRemove(_id) {
+  console.log(_id);
+  // remove item
+  const url3 = `http://localhost:5000/api/schools/${_id}`
+  axios.delete(url3)
+  .then(response => {
+      const result = response.data;
+      const { status, message } = result;
+      if (status !== 'SUCCESS') {
+          alert(message, status)
+      }
+      else {
+          alert(message)
+          window.location.reload()
+      }
+  })
+  .catch(err => {
+      console.log(err)
+  })
+}
+
+
+// function handleUpdate(e){
+//   e.preventDefault()
+//   setUpdateState(-1)
+  // axios.patch()
+  const handleUpdate = async (e) => {
+		e.preventDefault()
+		setUpdateState(-1)
+    // console.log(id)
+  }
+function handleEdit(id){
+  // console.log(id)
+  // const url3 = `http://localhost:5000/api/schools/${a}`
+  // axios.patch(url3).then(response =>{
+    
+  // }).catch(error =>{
+  //   console.log(error)
+  // })
+  setUpdateState(id)
+}
+
+function Edit({item, schools, setSchools}){
+  function handleInput(e){
+      const newList = schools.map(li => (
+        li._id === item._id ? {...li, [e.target.name] : e.target.value} : li 
+      ))
+      setSchools(newList)
+  }
+  return(
     <tr>
-       <i class="singlePostIcon fa-regular fa-trash-can" onClick={handleDelete}> delete</i>
-    <td><img src={schools.logo}/></td>
-    <td>{schools.name}</td>
-    <td>{schools.contact}</td>
-    <td>{schools.students}</td>
-    <td>{schools.address}</td>
-  </tr>
+      <td><input type="text" name="name" onChange={handleInput} value={item.name} /></td>
+      <td><input type="text" name="email" onChange={handleInput} value={item.email} /></td>
+      <td><button type='submit' className='update'>Update</button></td>
+    </tr>
   )
- })
-
-
- /////////////////////////////////////////////////////////////////
-//  let theArray = []
-
-// useEffect(() => {
-//         axios
-//             .get('/schools')
-//             .then(res => {
-//                 const newItem = {
-//                   id: res.data.id,
-//                   name: res.data.name,
-//                 };
-//                 theArray.push(newItem);
-//              })
-//     }, [])
+}
 
 //  const getDataa = () => [
-//  theArray.name, 
-// ]
- /////////////////////////////////////////////////////////////////
- const getDataa = () => [
-  ...schools 
-  // console.log("===>",schools)
- ]
- const getData = () => [
-  {
-    name: "Jane Cooper",
-    email: "jane.cooper@example.com",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    status: "Active",
-    role: "Admin",
-    imgUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    email: "jane.cooper@example.com",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    status: "Active",
-    role: "Admin",
-    imgUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Cody Fisher",
-    email: "cody.fisher@example.com",
-    title: "Product Directives Officer",
-    department: "Intranet",
-    status: "Active",
-    role: "Owner",
-    imgUrl:
-      "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Esther Howard",
-    email: "esther.howard@example.com",
-    title: "Forward Response Developer",
-    department: "Directives",
-    status: "Active",
-    role: "Member",
-    imgUrl:
-      "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jenny Wilson",
-    email: "jenny.wilson@example.com",
-    title: "Central Security Manager",
-    department: "Program",
-    status: "Inactive",
-    role: "Member",
-    imgUrl:
-      "https://images.unsplash.com/photo-1498551172505-8ee7ad69f235?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Kristin Watson",
-    email: "kristin.watson@example.com",
-    title: "Lean Implementation Liaison",
-    department: "Mobility",
-    status: "Offline",
-    role: "Admin",
-    imgUrl:
-      "https://images.unsplash.com/photo-1532417344469-368f9ae6d187?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Cameron Williamson",
-    email: "cameron.williamson@example.com",
-    title: "Internal Applications Engineer",
-    department: "Security",
-    status: "Active",
-    role: "Member",
-    imgUrl:
-      "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Cameron Williamson",
-    email: "cameron.williamson@example.com",
-    title: "Internal Applications Engineer",
-    department: "Security",
-    status: "Active",
-    role: "Member",
-    imgUrl:
-      "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Cameron Williamson",
-    email: "cameron.williamson@example.com",
-    title: "Internal Applications Engineer",
-    department: "Security",
-    status: "Active",
-    role: "Member",
-    imgUrl:
-      "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Cameron Williamson",
-    email: "cameron.williamson@example.com",
-    title: "Internal Applications Engineer",
-    department: "Security",
-    status: "Active",
-    role: "Member",
-    imgUrl:
-      "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-]
+//   ...schools 
+//   // console.log("===>",schools)
+//  ]
 
 
 // function App() {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Name",
-        accessor: "name",
-        Cell: AvatarCell,
-        imgAccessor: "imgUrl",
-        emailAccessor: "email",
-      },
-      {
-        Header: "Title",
-        accessor: "title",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-        Cell: StatusPill, // new
+  // const columns = React.useMemo(
+  //   () => [
+  //     {
+  //       Header: "School Name",
+  //       accessor: "name",
+  //       Cell: AvatarCell,
+  //       imgAccessor: "imgUrl",
+  //       emailAccessor: "email",
+  //     },
+  //     {
+  //       Header: "Principal",
+  //       accessor: "principal",
+  //     },
+  //     {
+  //       Header: "Contact",
+  //       accessor: "contact",
+  //     },
+  //     {
+  //       Header: "Department",
+  //       accessor: "department",
+  //     },
+  //     {
+  //       Header: "Status",
+  //       accessor: "status",
+  //       Cell: StatusPill, // new
 
-      },
-      {
-        Header: "Role",
-        accessor: 'role',
-        Filter: SelectColumnFilter,  // new
-        filter: 'includes',  // new
-      },
-    ], [])
+  //     },
+  //     {
+  //       Header: "Role",
+  //       accessor: 'role',
+  //       Filter: SelectColumnFilter,  // new
+  //       filter: 'includes',  // new
+  //     },
+  //     {
+  //       Header: "Action",
+  //       accessor: 'action',
+  //     },
+  //   ], [])
 
-  const data = React.useMemo(() => getDataa(schools), [schools]);
+  // const data = React.useMemo(() => getDataa(schools), [schools]);
  
   return (
 
     <div className="schools">
-schools
-{/* <table>
-  <thead>
-    <tr>
-      <th>Logo</th>
-      <th>Name</th>
-      <th>Contact</th>
-      <th>No. of Students</th>
-      <th>Address</th>
-    </tr>
-  </thead>
-  <tbody>
+          {/* <Table columns={columns} data={data} /> */}
 
-   {arr}
-  </tbody>
-  <tfoot>
-    <tr>
-    </tr>
-  </tfoot>
-</table> */}
-{/* //////// */}
-{/* <div className="min-h-screen bg-gray-100 text-gray-900">
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="">
-          <h1 className="text-xl font-semibold">React Table + Tailwind CSS = ❤</h1>
-        </div>
-        <div className="mt-4">
-          <Table columns={columns} data={data} /> */}
-          <table>
-  <thead>
-    <tr>
-      <th>Logo</th>
-      <th>Name</th>
-      <th>Contact</th>
-      <th>No. of Students</th>
-      <th>Address</th>
-    </tr>
-  </thead>
-  <tbody>
+<h1>Find your dream job - Latest Jobs Available</h1>
 
-   {arr}
-   <tr>
-    <td><img src={schools.logo}/></td>
-    <td>{schools.name}</td>
-    <td>{schools.contact}</td>
-    <td>{schools.students}</td>
-    <td>{schools.address}</td>
-    <td>sdhsgd</td>
-    <td>sdhsgd</td>
-    <td>sdhsgd</td>
-  </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-    </tr>
-  </tfoot>
+  <form onSubmit={handleUpdate}>
+<table>
+{schools.map((item) => (
+  updateState === item._id ? <Edit item = {item} schools={schools} setSchools={setSchools} /> : 
+      <tr>
+        <td>{item.name}</td>
+        <td>{item.email}</td>
+        <td>
+        <button type="button" className='edit' onClick={() => handleEdit(item._id)}>Edit</button>
+        <button type="button" className='delete' onClick={() => handleRemove(item._id)}>Delete</button></td>
+      </tr>
+))
+}
 </table>
-        {/* </div>
-      </main>
-    </div> */}
+</form>
 
-    {/* ////////// */}
+{/* <ul>
+      {schools.map((item) => (
+        <li key={item._id}>
+          <span></span>
+          <span>{item.email}</span>
+          <span>{item._id}</span>
+          <button type="button" onClick={() => handleEdit(item._id, item.name, item.email)}>Edit</button>
+         
+        </li>
+      ))}
+    </ul> */}
 
 
 
 
-    <div className="min-h-screen bg-gray-100 text-gray-900">
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="">
-          <h1 className="text-xl font-semibold">React Table + Tailwind CSS = ❤</h1>
-        </div>
-        <div className="mt-4">
-          <Table columns={columns} data={data} />
-        </div>
-      </main>
-    </div>
+
+
     </div>
   )
 
 }
+
+

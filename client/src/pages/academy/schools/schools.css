@@ -6,5 +6,19 @@ img{
     width: 100px
 }
 td{
-    padding: 20px;
+    padding: 10px;
+    border: 1px solid green;
+}
+button{
+    padding: 10px;
+
+}
+.edit{
+    background-color: yellowgreen;
+}
+.delete{
+    background-color: red;
+}
+.update{
+    background-color: green;
 }

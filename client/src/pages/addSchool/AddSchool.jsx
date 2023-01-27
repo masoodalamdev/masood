@@ -71,7 +71,8 @@ export default function AddSchool() {
   const [data, setData] = useState({
 		name: "",
 		email: "",
-		title: "",
+		principal: "",
+		contact: "",
 		department: "",
 		status: "",
 		imgUrl: "",
@@ -115,12 +116,12 @@ export default function AddSchool() {
 	return (
 		<div className='Songform'>
 			<form className='onSubmit' onSubmit={handleSubmit} >
-				<h1 className='heading'>Add School</h1>
-				<label>Principal Name:</label>
+				<h1 className='heading'>+ Register New School</h1>
+				<label>School Name:</label>
 				<input
 					type="text"
 					// className={styles.input}
-					placeholder="Principal Name"
+					placeholder="School Name"
 					name="name"
 					onChange={handleChange}
 					value={data.name}
@@ -135,16 +136,28 @@ export default function AddSchool() {
 					onChange={handleChange}
 					value={data.email}
 				/>
-				<label>School Name:</label>
+				<label>Principal Name:</label>
 
 				<input
 					type="text"
 					// className={styles.input}
-					placeholder="School Name"
-					name="title"
+					placeholder="Principal Name"
+					name="principal"
 					onChange={handleChange}
-					value={data.title}
+					value={data.principal}
 				/>
+				
+				<label>Contact Number:</label>
+
+				<input
+					type="text"
+					// className={styles.input}
+					placeholder="03xxxxxxxxx"
+					name="contact"
+					onChange={handleChange}
+					value={data.contact}
+				/>
+
 				<label>Department:</label>
 
 				<input

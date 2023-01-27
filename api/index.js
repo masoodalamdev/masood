@@ -8,14 +8,23 @@ const postRoute = require("./routes/posts")
 const categoryRoute = require("./routes/categories")
 const songRoutes = require("./routes/songs");
 const schoolRoutes = require("./routes/schools");
+const jobsRoutes = require("./routes/jobs");
+const teacherRoutes = require("./routes/teacher");
+const studentRoutes = require("./routes/student");
+
+
 
 const multer = require("multer")
 const path = require("path")
+
+// const cors = require("cors");
+
 
 
 dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")))
+
 
 mongoose.connect(process.env.MONGO_URL,).then(console.log("Connected to MongoDB")).catch(err=>(console.log(err)));
 
@@ -38,8 +47,12 @@ app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 app.use("/api/songs", songRoutes);
 app.use("/api/schools", schoolRoutes);
+app.use("/api/jobs", jobsRoutes);
+app.use("/api/teacher", teacherRoutes);
+app.use("/api/student", studentRoutes);
 
 
+  
 
 app.listen("5000", ()=>{
     console.log("Backend is running.")

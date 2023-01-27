@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalTitle } from 'react-bootstrap'
-import "./jobs.css"
+import "./teacher.css"
 import axios from 'axios'
-import FileInput from "../../FileInput";
-import styles from "./styles.module.css";
-
-
-
-
-
-const Job = () => {
+const Teacher = () => {
     const [Data, setData] = useState([]);
     const [RowData, SetRowData] = useState([])
     const [ViewShow, SetViewShow] = useState(false)
@@ -29,56 +22,24 @@ const Job = () => {
     const hanldePostClose = () => { SetPostShow(false) }
 
     //Define here local state that store the form Data
-    const [name, setName] = useState("")
-    const [designation, setDesignation] = useState("")
-    const [qualification, setQualification] = useState("")
+    const [teacherName, setTeacherName] = useState("")
+    const [schoolName, setSchoolName] = useState("")
     const [email, setEmail] = useState("")
-    const [experience, setExperience] = useState("")
-    const [contact, setContact] = useState("")
-    const [salary, setSalary] = useState("")
-    const [jobType, setJobType] = useState("")
-    const [address, setAddress] = useState("")
-    const [imgUrl, setImgUrl] = useState("")
+    const [teacherContact, setTeacherContact] = useState("")
+    const [teacherCnic, setTeacherCnic] = useState("")
+    const [teacherQualification, setTeacherQualification] = useState("")
+    const [teacherExperience, setTeacherExperience] = useState("")
+    const [teacherSalary, setTeacherSalary] = useState("")
+    const [teacherAddress, setTeacherAddress] = useState("")
     const [Delete,setDelete] = useState(false)
     //Id for update record and Delete
     const [id,setId] = useState("");
 
   
-    const GetJobRecord = () => {
-
-    
-        // const handleSubmit = async (e) => {
-        //     e.preventDefault()
-        //     try {
-        //         // const url = process.env.REACT_APP_API_URL + "/songs"
-        //         const url =  "/songs"
-
-
-
-        //         const { data : res } = await axios.post(url, data);
-        //         // console.log(res + " sdhsdhsd");
-        //         // console.log("s") 
-        //         alert(res.message)
-        //         setData({
-                  
-        //             song: "",
-        //             img: "",	
-        //         })
-    
-    
-        //     } catch (error) {
-        //         console.log(error  + " error comes from here")
-        //     }
-        // };
-
-
-
-
-
-
+    const GetTeacherRecord = () => {
 
         //here we will get all school records
-        const url = 'http://localhost:5000/api/jobs'
+        const url = 'http://localhost:5000/api/teacher'
         axios.get(url)
             .then(response => {
                 const result = response.data;
@@ -90,9 +51,9 @@ const Job = () => {
                 else {
                     setData(data)
                     // console.log(data)
-                    const jcount = data.length
-                    console.log(jcount)
-                    document.getElementById("jobs").innerHTML = jcount
+                    const tcount = data.length
+                    console.log(tcount)
+                    document.getElementById("teacher").innerHTML = tcount
                  
                 }
             })
@@ -101,11 +62,8 @@ const Job = () => {
             })
     }
     const handleSubmite = () => {
-        
-
-
-        const url = 'http://localhost:5000/api/jobs'
-        const Credentials = { name, designation, qualification, experience, email, contact, salary, jobType, address, imgUrl }
+        const url = 'http://localhost:5000/api/teacher'
+        const Credentials = { teacherName, schoolName, email, teacherContact, teacherCnic, teacherQualification, teacherExperience, teacherSalary, teacherAddress }
         axios.post(url, Credentials)
             .then(response => {
                 const result = response.data;
@@ -122,12 +80,9 @@ const Job = () => {
                 console.log(err)
             })
     }
-
-
-    const handleEdit = ()=>{
-    const Credentials = { name: name, designation : designation, qualification : qualification, experience,  email, contact, salary, jobType, address, imgUrl } 
-
-        const url = `http://localhost:5000/api/jobs/${id}`
+    const handleEdit = () =>{
+        const url = `http://localhost:5000/api/teacher/${id}`
+        const Credentials = { teacherName, schoolName, email, teacherContact, teacherCnic, teacherQualification, teacherExperience, teacherSalary, teacherAddress }
         axios.put(url, Credentials)
             .then(response => {
                 const result = response.data;
@@ -146,7 +101,7 @@ const Job = () => {
     }
     //handle Delete Function 
     const handleDelete = () =>{
-        const url = `http://localhost:5000/api/jobs/${id}`
+        const url = `http://localhost:5000/api/teacher/${id}`
         axios.delete(url)
             .then(response => {
                 const result = response.data;
@@ -166,14 +121,9 @@ const Job = () => {
     //call this function in useEffect
     console.log(ViewShow + " view show", RowData + "row data show")
     useEffect(() => {
-      GetJobRecord();
+        GetTeacherRecord();
     }, [])
 
-    // const handleInputState = (name, value) => {
-    //     setImgData((prev) => ({ ...prev, [name]: value }));
-    // };
-  
-  
     /////////////////////////
     // function MyFunction() {
 
@@ -202,15 +152,15 @@ const Job = () => {
     /////////////////////////
    
     return (
-        <div className='jobs'>
+        <div className='teacher'>
              {/* <MyFunction /> */}
              <div className='teacherCount'>
-               Registered Jobs <span id='jobs'></span>
+               Registered Teachers <span id='teacher'></span>
                 </div>
             <div className='row'>
                 <div className='mt-5 mb-4'>
                     <Button variant='primary' onClick={() => { handlePostShow() }}><i className='fa fa-plu'></i>
-                        + Register Job
+                        + Register Teacher
                     </Button>
                 </div>
             </div>
@@ -219,33 +169,29 @@ const Job = () => {
                     <table className='table table-striped table-hover table-bordered'>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Designation</th>
-                                <th>Qualification</th>
-                                <th>Experience</th>
+                                <th>Teacher Name</th>
+                                <th>School Name</th>
                                 <th>Email</th>
-                                <th>Contact</th>
-                                <th>Salary</th>
-                                <th>Job Type</th>
-                                <th>Address</th>
-                                <th>Logo</th>
+                                <th>Teacher Contact</th>
+                                <th>Teacher CNIC</th>
+                                <th>Teacher Qualification</th>
+                                <th>Teacher Experience</th>
+                                <th>Teacher Salary</th>
+                                <th>Teacher Address</th>
                             </tr>
                         </thead>
                         <tbody>
                             {Data.map((item) =>
                                 <tr key={item._id}>
-                                    <td>{item.name}</td>
-                                    <td>{item.designation}</td>
-                                    <td>{item.qualification}</td>
-                                    <td>{item.experience}</td>
+                                    <td>{item.teacherName}</td>
+                                    <td>{item.schoolName}</td>
                                     <td>{item.email}</td>
-                                    <td>{item.contact}</td>
-                                    <td>{item.salary}</td>
-                                    <td>{item.jobType}</td>
-                                    <td>{item.address}</td>
-                                    <td>
-                                        <img src={item.imgUrl} />
-                                       </td>
+                                    <td>{item.teacherContact}</td>
+                                    <td>{item.teacherCnic}</td>
+                                    <td>{item.teacherQualification}</td>
+                                    <td>{item.teacherExperience}</td>
+                                    <td>{item.teacherSalary}</td>
+                                    <td>{item.teacherAddress}</td>
                                     <td style={{ minWidth: 190 }}>
                                         <Button size='sm' variant='primary' onClick={() => { handleViewShow(SetRowData(item)) }}>View</Button>|
                                         <Button size='sm' variant='warning' onClick={()=> {handleEditShow(SetRowData(item),setId(item._id))}}>Edit</Button>|
@@ -266,26 +212,17 @@ const Job = () => {
                     keyboard={false}
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title>View Job Details</Modal.Title>
+                        <Modal.Title>View Teacher Details</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div>
                             <div className='form-group'>
-                                <label>Name</label>
-                                <input type="text" className='form-control' value={RowData.name} readOnly />
+                                <label>Teacher Name</label>
+                                <input type="text" className='form-control' value={RowData.teacherName} readOnly />
                             </div>
                             <div className='form-group'>
-                                <label>Designation</label>
-                                <input type="text" className='form-control' value={RowData.designation} readOnly />
-                            </div>
-                            <div className='form-group'>
-                                <label>Qualification</label>
-                                <input type="text" className='form-control' value={RowData.qualification} readOnly />
-                            </div>
-                            <div className='form-group mt-3'>
-                            <label>Experience</label>
-
-                                <input type="email" className='form-control' value={RowData.experience} readOnly />
+                                <label>School Name</label>
+                                <input type="text" className='form-control' value={RowData.schoolName} readOnly />
                             </div>
                             <div className='form-group mt-3'>
                             <label>Email address</label>
@@ -295,30 +232,34 @@ const Job = () => {
                             <div className='form-group mt-3'>
                             <label>Contact</label>
 
-                                <input type="text" className='form-control' value={RowData.contact} readOnly />
+                                <input type="text" className='form-control' value={RowData.teacherContact} readOnly />
                             </div>
+                            <div className='form-group mt-3'>
+                            <label>CNIC</label>
+
+                                <input type="text" className='form-control' value={RowData.teacherCnic} readOnly />
+                            </div>
+                            <div className='form-group mt-3'>
+                            <label>Qualification</label>
+
+                                <input type="text" className='form-control' value={RowData.teacherQualification} readOnly />
+                            </div>
+                            <div className='form-group mt-3'>
+                            <label>Experience</label>
+
+                                <input type="text" className='form-control' value={RowData.teacherExperience} readOnly />
+                            </div>
+                           
                             <div className='form-group mt-3'>
                             <label>Salary</label>
 
-                                <input type="text" className='form-control' value={RowData.salary} readOnly />
-                            </div>
-                            <div className='form-group mt-3'>
-                            <label>Job Type</label>
-
-                                <input type="text" className='form-control' value={RowData.jobType} readOnly />
+                                <input type="text" className='form-control' value={RowData.teacherSalary} readOnly />
                             </div>
                             <div className='form-group mt-3'>
                             <label>Address</label>
 
-                                <input type="text" className='form-control' value={RowData.address} readOnly />
+                                <input type="text" className='form-control' value={RowData.teacherAddress} readOnly />
                             </div>
-                           
-                            <div className='form-group mt-3'>
-                            <label>Logo</label>
-
-                                <input type="text" className='form-control' value={RowData.imgUrl} readOnly />
-                            </div>
-                          
                             {
                                 Delete && (
                                     <Button type='submit' className='btn btn-danger mt-4' onClick={handleDelete}>Delete Teacher Record</Button>
@@ -340,68 +281,48 @@ const Job = () => {
                     keyboard={false}
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title>+ Register Job</Modal.Title>
+                        <Modal.Title>+ Register Teacher</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div>
                             <div className='form-group'>
-                            <label>Name</label>
-                                <input type="text" className='form-control' onChange={(e) => setName(e.target.value)} placeholder="e.g Expert Academy" />
+                            <label>Teacher Name</label>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherName(e.target.value)} placeholder="e.g Mr. John" />
                             </div>
                             <div className='form-group'>
-                            <label>Designation</label>
-                                <input type="text" className='form-control' onChange={(e) => setDesignation(e.target.value)} placeholder="e.g Lecturer, Clerk" />
-                            </div>
-                            <div className='form-group'>
-                            <label>Qualification</label>
-                                <input type="text" className='form-control' onChange={(e) => setQualification(e.target.value)} placeholder="e.g BS, MS, MA etc" />
+                            <label>School Name</label>
+                                <input type="text" className='form-control' onChange={(e) => setSchoolName(e.target.value)} placeholder="e.g Modern Tech Academy" />
                             </div>
                             <div className='form-group mt-3'>
-                                <label>Experience</label>
-                                <input type="text" className='form-control' onChange={(e) => setExperience(e.target.value)} placeholder="e.g 1 year, 2 years " />
-                            </div>
-                            <div className='form-group mt-3'>
-                                <label>Email address</label>
+                                <lable>Email address</lable>
 
                                 <input type="email" className='form-control' onChange={(e) => setEmail(e.target.value)} placeholder="abc@xyz.com" />
                             </div>
                             <div className='form-group mt-3'>
                             <label>Contact</label>
-                                <input type="text" className='form-control' onChange={(e) => setContact(e.target.value)} placeholder="e.g 03xxxxxxxxx" />
+                                <input type="text" className='form-control' onChange={(e) => setTeacherContact(e.target.value)} placeholder="e.g 03xxxxxxxxx" />
                             </div>
                             <div className='form-group mt-3'>
-                                <label>Salary</label>
-                                <input type="text" className='form-control' onChange={(e) => setSalary(e.target.value)} placeholder="e.g 45000, 65000" />
+                                <lable>CNIC</lable>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherCnic(e.target.value)} placeholder="e.g 1234512345679" />
                             </div>
                             <div className='form-group mt-3'>
-                                <label>Job Type</label>
-                                <input type="text" className='form-control' onChange={(e) => setJobType(e.target.value)} placeholder="e.g Regular, Contract" />
+                                <lable>Qualification</lable>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherQualification(e.target.value)} placeholder="e.g Intermediate, Graduate, Master" />
                             </div>
-                          
                             <div className='form-group mt-3'>
-                                <label>Address</label>
-                                <input type="text" className='form-control' onChange={(e) => setAddress(e.target.value)} placeholder="e.g Home Town, California" />
+                                <lable>Experience</lable>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherExperience(e.target.value)} placeholder="e.g 1 year, 2 years " />
                             </div>
-                            {/* <div className='form-group mt-3'>
-                                <label>Logo</label>
-                                <input type="text" className='form-control' onChange={(e) => setImgUrl(e.target.value)} placeholder="e.g Home Town, California" />
-                            </div> */}
-                            	{/* <FileInput
-                                    name="img"
-                                    label="Choose Image"
-                                    handleInputState={handleInputState}
-                                    type="image"
-                                    value={data.img}
-                                />
-                                <FileInput
-                                    name="song"
-                                    label="Choose Song"
-                                    handleInputState={handleInputState}
-                                    type="audio"
-                                    value={data.song}
-                                /> */}
-				{/* {console.log(data)} */}
-                            <Button type='submit' className='btn btn-success mt-4' onClick={handleSubmite}>+ Register New Job</Button>
+                            <div className='form-group mt-3'>
+                                <lable>Salary</lable>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherSalary(e.target.value)} placeholder="e.g 45000, 65000" />
+                            </div>
+                            <div className='form-group mt-3'>
+                                <lable>Address</lable>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherAddress(e.target.value)} placeholder="e.g Home Town, California" />
+                            </div>
+                            <Button type='submit' className='btn btn-success mt-4' onClick={handleSubmite}>+ Register New Teacher</Button>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
@@ -410,13 +331,6 @@ const Job = () => {
                 </Modal>
             </div>
             {/* Modal for Edit school record */}
-
-                {/* ============================================= */}
-
-
-       
-
-                {/* ============================================= */}
             <div className='model-box-view'>
                 <Modal
                     show={ViewEdit}
@@ -430,21 +344,12 @@ const Job = () => {
                     <Modal.Body>
                         <div>
                             <div className='form-group'>
-                                <label>Name</label>
-                                <input type="text" className='form-control' onChange={(e) => setName(e.target.value)} placeholder="Please enter Name" defaultValue={RowData.name}/>
-                                
+                                <label>Teacher Name</label>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherName(e.target.value)} placeholder="Please enter Teacher Name" defaultValue={RowData.teacherName}/>
                             </div>
                             <div className='form-group'>
-                            <label>Designation</label>
-                                <input type="text" className='form-control' onChange={(e) => setDesignation(e.target.value)} placeholder="Please enter Clerk, Lecturer" defaultValue={RowData.designation}/>
-                            </div>
-                            <div className='form-group mt-3'>
-                                <label>Qualification</label>
-                                <input type="text" className='form-control' onChange={(e) => setQualification(e.target.value)} placeholder="Please enter Qualification" defaultValue={RowData.qualification}/>
-                            </div>
-                            <div className='form-group mt-3'>
-                                <label>Experience</label>
-                                <input type="text" className='form-control' onChange={(e) => setExperience(e.target.value)} placeholder="Please enter Experience" defaultValue={RowData.experience}/>
+                                <label>School Name</label>
+                                <input type="text" className='form-control' onChange={(e) => setSchoolName(e.target.value)} placeholder="Please enter School Name" defaultValue={RowData.schoolName}/>
                             </div>
                             <div className='form-group mt-3'>
                                 <label>Email</label>
@@ -452,23 +357,31 @@ const Job = () => {
                             </div>
                             <div className='form-group mt-3'>
                                 <label>Contact</label>
-                                <input type="text" className='form-control' onChange={(e) => setContact(e.target.value)} placeholder="Please enter Contact" defaultValue={RowData.contact}/>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherContact(e.target.value)} placeholder="Please enter Teacher Contact" defaultValue={RowData.teacherContact}/>
+                            </div>
+                            <div className='form-group mt-3'>
+                                <label>CNIC</label>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherCnic(e.target.value)} placeholder="Please enter Teacher CNIC" defaultValue={RowData.teacherCnic}/>
+                            </div>
+
+
+                            <div className='form-group mt-3'>
+                                <label>Qualification</label>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherQualification(e.target.value)} placeholder="Please enter Teacher Qualification" defaultValue={RowData.teacherQualification}/>
+                            </div>
+                            <div className='form-group mt-3'>
+                                <label>Experience</label>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherExperience(e.target.value)} placeholder="Please enter Teacher Experience" defaultValue={RowData.teacherExperience}/>
                             </div>
                             <div className='form-group mt-3'>
                                 <label>Salary</label>
-                                <input type="text" className='form-control' onChange={(e) => setSalary(e.target.value)} placeholder="Please enter salary" defaultValue={RowData.salary}/>
-                            </div>
-
-
-                            <div className='form-group mt-3'>
-                                <label>Job Type</label>
-                                <input type="text" className='form-control' onChange={(e) => setJobType(e.target.value)} placeholder="e.g Contract, Regular" defaultValue={RowData.jobType}/>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherSalary(e.target.value)} placeholder="Please enter Teacher Salary" defaultValue={RowData.teacherSalary}/>
                             </div>
                             <div className='form-group mt-3'>
                                 <label>Address</label>
-                                <input type="text" className='form-control' onChange={(e) => setAddress(e.target.value)} placeholder="Please enter Address" defaultValue={RowData.address}/>
+                                <input type="text" className='form-control' onChange={(e) => setTeacherAddress(e.target.value)} placeholder="Please enter Teacher Address" defaultValue={RowData.teacherAddress}/>
                             </div>
-                            <Button type='submit' className='btn btn-warning mt-4' onClick={handleEdit}>Edit Job</Button>
+                            <Button type='submit' className='btn btn-warning mt-4' onClick={handleEdit}>Edit Teacher</Button>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
@@ -480,4 +393,4 @@ const Job = () => {
     );
 };
 
-export default Job;
+export default Teacher;

@@ -17,6 +17,7 @@ code {
 }
 
 
-.container{
+.mainContainer{
   display: flex;
+  border: 2px solid red;
 }

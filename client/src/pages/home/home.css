@@ -1,8 +1,11 @@
-/* .home{
-    display: flex;
-} */
-
 .home{
-    flex: 4;
+    flex: 5;
 }
-
+.counter{
+    display: flex;
+}
+.counter div{
+    padding: 10px;
+    font-size: 20px;
+    
+}

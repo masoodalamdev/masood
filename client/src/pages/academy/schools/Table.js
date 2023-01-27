@@ -4,6 +4,13 @@ import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDouble
 import { Button, PageButton } from './Button'
 import { classNames } from './Utils'
 import { SortIcon, SortUpIcon, SortDownIcon } from './Icons'
+import { FiEdit } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
+import axios from "axios";
+
+
+
+
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -225,11 +232,23 @@ function Table({ columns, data }) {
                             ) : (
                               cell.render("Cell")
                             )}
+                            
                           </td>
                       
                           )
                         })}
+                        
+                        <button class="" >
+                        <FiEdit className="sidebarIcon" onClick={()=>{
+                            alert("sdsh")
+                        }}/>
+                        
+</button>
+<button class="">
+<MdDeleteOutline className="sidebarIcon" />
+                        </button>
                       </tr>
+                      
                     )
                   })}
                 </tbody>

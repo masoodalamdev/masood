@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from 'axios';
 // import FileInput from "../FileInput";
 import FileInput from "../../pages/FileInput";
-// import styles from "./styles.module.css";
+import styles from "./styles.module.css";
 import './form.css';
 
 const SongForm = () => {
@@ -49,7 +49,7 @@ const SongForm = () => {
 				<h1 className='heading'>Song Form</h1>
 				<input
 					type="text"
-					// className={styles.input}
+					className={styles.input}
 					placeholder="Title"
 					name="title"
 					onChange={handleChange}
@@ -57,7 +57,7 @@ const SongForm = () => {
 				/>
 				<input
 					type="text"
-					// className={styles.input}
+					className={styles.input}
 					placeholder="Description"
 					name="desc"
 					onChange={handleChange}
@@ -77,6 +77,7 @@ const SongForm = () => {
 					type="audio"
 					value={data.song}
 				/>
+				{console.log(data)}
 				<button type="submit" className='submitBtn' >
 					Submit
 				</button>

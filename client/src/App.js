@@ -13,7 +13,7 @@ import { Context } from "./context/Context";
 import "./app.css"
 import Footer from "./components/footer/Footer";
 import Sidebar from "./components/sidebar/Sidebar";
-import Jobs from "./pages/academy/jobs/Jobs";
+import Job from "./pages/academy/job/Job";
 import Blog from "./pages/academy/blog/Blog";
 import Videos from "./pages/academy/videos/Videos";
 import Schedule from "./pages/academy/schedule/Schedule";
@@ -28,6 +28,13 @@ import Schools from "./pages/academy/schools/Schools";
 import AddSchool from "./pages/addSchool/AddSchool";
 
 import Blogs from "./pages/student/blogs/Blogs";
+import Jobs from "./pages/student/jobs/Jobs";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Teacher from "./pages/academy/teacher/Teacher";
+import Student from "./pages/academy/student/Student";
+import School from "./pages/academy/school/School";
+
 
 
 
@@ -37,7 +44,7 @@ function App() {
   
     <BrowserRouter>
         <TopBar/>
-        <div className="container">
+        <div className="mainContainer">
         <Sidebar/>
         <Routes>
           <Route path="/" element={<Home />}/>
@@ -46,7 +53,7 @@ function App() {
           <Route path="/write" element={user ? <Write/> : <Register/>}/>
           <Route path="/settings" element={user ? <Settings/> : <Register/>}/>
           <Route path="/post/:postId" element={<Single/>}/>
-          <Route path="/jobs" element={<Jobs />}/>
+          <Route path="/job" element={<Job />}/>
           <Route path="/index" element={<SongForm />}/>
           <Route path="/blog" element={<Blog />}/>
           <Route path="/videos" element={<Videos />}/>
@@ -60,10 +67,15 @@ function App() {
           <Route path="/schedule" element={<Schedule />}/>
           <Route path="/schools" element={<Schools />}/>
           <Route path="/addSchool" element={<AddSchool />}/>
+          <Route path="/school" element={<School />}/>
+          <Route path="/teacher" element={<Teacher />}/>
+          <Route path="/student" element={<Student />}/>
+          <Route path="/student/jobs" element={<Jobs />}/>
 
           {/* student portal */}
 
           <Route path="/student/blogs" element={<Blogs />}/>
+          <Route path="/student/jobs" element={<Jobs />}/>
 
 
 

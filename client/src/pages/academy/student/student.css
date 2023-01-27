@@ -1,0 +1,11 @@
+.student{
+    flex: 4;
+}
+.studentCount{
+    font-size: 24px;
+    border: 1px solid #444;
+
+}
+.studentCount span{
+    font-weight: bold;
+}
